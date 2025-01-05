@@ -1,0 +1,18 @@
+export const scoreTypes = {
+    "1c114810-2eeb-4b9b-a6b0-9e608e44218d": "Điểm chuyên cần",
+    "8fd9b3d4-2464-49c1-a137-cd0624df579c": "Điểm thi giữa kỳ lần 2",
+    "3854768b-8eed-4577-80ff-c1aa69591cd7": "Điểm thi lý thuyết kết thúc HP",
+    "6441c7af-f7ca-43f7-9203-5362654e61ff": "Điểm tổng kết học phần",
+    "74859759-0e07-41af-bce0-86ede1df048b": "Điểm thi thực hành kết thúc HP",
+    "e2e8fa81-5a59-411c-998f-f1299f30cc5f": "Điểm hồ sơ học phần",
+    "d191b2f6-1db4-423e-8449-3ea23778c62d": "Điểm thực tập cơ sở",
+    "5fadb957-b01e-4c9a-a1ae-b5014073c066": "Điểm báo cáo cơ sở",
+    "a4dba534-08c2-4f0a-9358-4bf68b31e05b": "Điểm thực hành lần 1",
+    "c1f8a7be-1662-47c7-9ceb-3626903e952a": "Điểm thực hành lần 2",
+    "3aa534ec-e59b-4574-a88b-39a984f6088f": "Điểm thực hành lần 3",
+    "8120d054-d282-49ae-b014-4d8dc7807686": "Điểm thi giữa kỳ lần 1",
+    "e7eb0619-01a7-41ba-a4f6-31bd94c76745": "Số tiết lý thuyết (nếu có)",
+    "8c0b8cb0-299e-4534-ae27-6929674083f8": "Số tiết thực hành (nếu có)",
+    "1fcd53d2-2df7-484c-a22e-052b28f45005": "Điểm quá trình",
+    "ae17780b-da01-4dae-8bc3-bcdfe9836658": "Điểm cuối kỳ",
+}
