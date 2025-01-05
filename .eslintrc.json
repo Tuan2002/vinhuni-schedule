@@ -66,7 +66,7 @@
             "position": "after"
           }
         ],
-        "newlines-between": "always"
+        "newlines-between": "off"
       }
     ],
     "react/self-closing-comp": "warn",
@@ -81,8 +81,8 @@
     ],
     "padding-line-between-statements": [
       "warn",
-      {"blankLine": "always", "prev": "*", "next": "return"},
-      {"blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
+      {"blankLine": "off", "prev": "*", "next": "return"},
+      {"blankLine": "off", "prev": ["const", "let", "var"], "next": "*"},
       {
         "blankLine": "any",
         "prev": ["const", "let", "var"],
