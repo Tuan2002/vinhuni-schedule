@@ -9,24 +9,12 @@ export const siteConfig = {
       label: "Trang chủ",
       href: "/",
     },
-    {
-      label: "Lịch thi",
-      href: "/contest-schedule",
-    },
-    {
-      label: "Thời khóa biểu",
-      href: "/schedule",
-    },
   ],
   navMenuItems: [
     {
       label: "Tra cứu lịch thi",
-      href: "/contest-schedule",
-    },
-    {
-      label: "Tra cứu hời khóa biểu",
-      href: "/schedule",
-    },
+      href: "/",
+    }
   ],
   links: {
     github: "https://github.com/tuan2002",
