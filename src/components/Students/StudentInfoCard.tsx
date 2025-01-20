@@ -12,7 +12,7 @@ import {
     Link,
     Skeleton,
     type CardProps
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 
 interface StudentInfoCardProps {

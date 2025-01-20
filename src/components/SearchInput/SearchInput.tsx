@@ -1,9 +1,9 @@
 "use client";
 import { verifyTurnstileToken } from "@/app/servers/auth";
 import { getStudentInfoAsync, setNewResultAsync } from "@/app/servers/schedule";
-import { Button } from "@nextui-org/button";
-import { Form } from "@nextui-org/form";
-import { Input } from "@nextui-org/input";
+import { Button } from "@heroui/button";
+import { Form } from "@heroui/form";
+import { Input } from "@heroui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Turnstile from 'react-turnstile';
