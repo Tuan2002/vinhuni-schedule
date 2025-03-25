@@ -52,6 +52,66 @@ export const subtitle = tv({
   },
 });
 
+export const buttonStyle = tv({
+  base: "shadow-sm",
+  variants: {
+      backgroundColor: {
+      violet: "from-[#FF1CF7] to-[#b249f8]",
+      yellow: "from-[#FF705B] to-[#FFB457]",
+      blue: "from-[#5EA2EF] to-[#0072F5]",
+      cyan: "from-[#00b7fa] to-[#01cfea]",
+      green: "from-[#6FEE8D] to-[#17c964]",
+      pink: "from-[#FF72E1] to-[#F54C7A]",
+      foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
+    },
+    variant: {
+      flat: "hover:bg-opacity-90",
+      outline: "border border-solid border-default-500",
+      ghost: "bg-transparent text-default-500",
+    },
+  }}
+);
+
+export const sectionText = tv({
+  base: "tracking-tight inline font-semibold text-default-500",
+  variants: {
+    color: {
+      violet: "from-[#FF1CF7] to-[#b249f8]",
+      yellow: "from-[#FF705B] to-[#FFB457]",
+      blue: "from-[#5EA2EF] to-[#0072F5]",
+      cyan: "from-[#00b7fa] to-[#01cfea]",
+      green: "from-[#6FEE8D] to-[#17c964]",
+      pink: "from-[#FF72E1] to-[#F54C7A]",
+      foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
+    },
+    size: {
+      sm: "text-sm lg:text-md",
+      md: "text-lg lg:text-xl",
+      lg: "text-[2.3rem] lg:text-5xl leading-9",
+    },
+    fullWidth: {
+      true: "w-full block",
+    },
+  },
+  defaultVariants: {
+    size: "sm",
+  },
+  compoundVariants: [
+    {
+      color: [
+        "violet",
+        "yellow",
+        "blue",
+        "cyan",
+        "green",
+        "pink",
+        "foreground",
+      ],
+      class: "bg-clip-text text-transparent bg-gradient-to-b",
+    },
+  ],
+});
+
 export const titleWrapper = tv({
   base: "flex flex-col gap-2 items-start justify-center w-full",
 });

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Turnstile from 'react-turnstile';
 
-const SearchInput = () => {
+const ContestScheduleSearch = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [value, setValue] = useState("");
@@ -97,4 +97,4 @@ const SearchInput = () => {
     );
 };
 
-export default SearchInput;
+export default ContestScheduleSearch;

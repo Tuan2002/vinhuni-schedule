@@ -1,6 +1,7 @@
 import { LastButNotLeast } from "@/components/Instructions/Instruction";
 import { subtitle, title } from "@/components/Primitives";
-import SearchInput from "@/components/SearchInput/SearchInput";
+import { Button } from "@heroui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,16 +11,27 @@ export default function Home() {
           size: "lg",
         })}>Tra cứu&nbsp;</span>
         <span className={title({ color: "violet", size: "lg" })}>Lịch thi&nbsp;</span>
+        <span className={title({ size: "lg" })}>&</span>
         <br />
+        <span className={title({ color: "yellow", size: "lg" })}>Giảng viên&nbsp;</span>
+        <span className={title({ size: "lg" })}>&</span>
+        <br />
+        <span className={title({ color: "blue", size: "lg" })}>Thời khóa biểu&nbsp;</span>
+        <span className={title({ size: "lg" })}>&</span>
         <span className={title({
           size: "lg",
-        })}> Bằng cách đơn giản nhất</span>
+        })}> Nhanh, Đơn giản</span>
         <div className={subtitle({ class: "mt-4" })}>
-          Dành cho sinh viên trường Đại học Vinh hệ chính quy
+          Dành cho phụ huynh và sinh viên trường Đại học Vinh
         </div>
-        <div className="mt-4">
-          <SearchInput />
+        <div className="mt-4 flex flex-col sm:flex-row justify-center items-center gap-2">
+          <Button as={Link} href="/contest-schedule" fullWidth className={"shadow-sm bg-gradient-to-tr text-white from-[#b95ab6] to-[#b249f8]"} variant="flat">Tra cứu lịch thi</Button>
+          <Button as={Link} href="/lecturers" fullWidth className={"shadow-sm bg-gradient-to-tr text-white from-[#FF705B] to-[#FFB457]"} variant="flat">Tra cứu giảng viên</Button>
+          {/* <Button as={Link} href="/schedule" fullWidth className={"shadow-sm bg-gradient-to-tr text-white from-[#5EA2EF] to-[#0072F5]"} variant="flat">Tra cứu TKB</Button> */}
         </div>
+        {/* <div className="mt-4">
+          <ContestScheduleSearch />
+        </div> */}
       </div>
       <LastButNotLeast />
     </section>

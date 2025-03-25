@@ -4,6 +4,19 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
+export type BaseLecturerInfo = {
+  id: string;
+  name: string;
+  position: string;
+  department: string;
+  image?: string;
+};
+
+export type LecturerInfo = BaseLecturerInfo & {
+  emails: string[];
+  phone?: string;
+};
+
 export type StudentInfo = {
   code: string;
   firstName?: string;

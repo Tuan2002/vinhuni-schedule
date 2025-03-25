@@ -3,11 +3,13 @@ import { timeConstants } from "@/constants";
 import { ContestMethods } from "@/constants/contestMethods";
 import { locationInstructions } from "@/constants/locationInstructions";
 import { scoreTypes } from "@/constants/scoreTypes";
+import { StatisticTypes } from "@/constants/statisticTypes";
+import { prisma } from "@/libs/prisma";
 import redis from "@/libs/redis";
 import { BaseContestSchedule, ContestListInfo, ContestSchedule, ContestTimeInfo, MajorInfo, RoomInfo, StudentInfo, SubjectInfo, TownInfo } from "@/types";
+import { Base64 } from "js-base64";
 import { v4 as uuidv4 } from 'uuid';
 import { getAccessToken } from "./auth";
-
 
 const getStudentInfoAsync = async (studentCode: string) => {
     try {
@@ -111,7 +113,6 @@ const getSubjectInfoAsync = async (subjectId: string) => {
         if (cachedSubjectInfo) {
             return JSON.parse(cachedSubjectInfo);
         }
-        console.log("SUBJECT ID: ", subjectId);
         if (!subjectId) {
             throw new Error('Invalid subject id');
         }
@@ -152,7 +153,6 @@ const getContestTimeInfoAsync = async (contestTimeId?: number) => {
         if (cachedContestTimeInfo) {
             return JSON.parse(cachedContestTimeInfo);
         }
-        console.log("CONTEST TIME ID: ", contestTimeId);
         if (!contestTimeId) {
             throw new Error('Invalid contest time id');
         }
@@ -255,7 +255,6 @@ const getTownInfoAsync = async (townId?: number) => {
         if (cachedTownInfo) {
             return JSON.parse(cachedTownInfo);
         }
-        console.log("TOWN ID: ", townId);
         if (!townId) {
             throw new Error('Invalid town id');
         }
@@ -294,7 +293,6 @@ const getContestListInfoAsync = async (contestListId?: number) => {
         if (cachedContestListInfo) {
             return JSON.parse(cachedContestListInfo);
         }
-        console.log("CONTEST LIST ID: ", contestListId);
         const accessToken = await getAccessToken();
         if (!accessToken) {
             throw new Error('Failed to get access token');
@@ -329,8 +327,18 @@ const getContestListInfoAsync = async (contestListId?: number) => {
 
 const getContestSchedulesAsync = async (studentCode: string, sessionId: string) => {
     try {
+        const requestTimestamp = new Date();
+        const requestHash = Base64.encode(`${studentCode}&${sessionId}&${requestTimestamp.toISOString()}`);
+
         const cachedContestSchedules = await redis.get(`CONTEST_SCHEDULE:${studentCode}/${sessionId}`);
         if (cachedContestSchedules) {
+            await prisma.statistics.create({
+                data: {
+                    code: StatisticTypes.ContestSchedule,
+                    hash: requestHash,
+                    timestamp: requestTimestamp,
+                }
+            });
             return { success: true, data: JSON.parse(cachedContestSchedules) };
         }
         if (!studentCode || !sessionId) {
@@ -422,6 +430,14 @@ const getContestSchedulesAsync = async (studentCode: string, sessionId: string) 
             });
             await redis.setex(`CONTEST_SCHEDULE:${studentCode}/${sessionId}`, timeConstants.REDIS_CACHE_SCHEDULE, JSON.stringify(contestSchedules));
         }
+
+        await prisma.statistics.create({
+            data: {
+                code: StatisticTypes.ContestSchedule,
+                hash: requestHash,
+                timestamp: requestTimestamp,
+            }
+        });
         return { success: true, data: contestSchedules };
     } catch (error) {
         console.log(error);

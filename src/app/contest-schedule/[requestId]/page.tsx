@@ -1,12 +1,13 @@
 import { getSchoolSessionsAsync, getSchoolYearsAsync } from "@/app/servers/common";
 import { getContestSchedulesAsync, getMajorInfoAsync, getResultAsync, getStudentInfoAsync } from "@/app/servers/schedule";
+import { siteConfig } from "@/config/site";
 import { timeConstants } from "@/constants";
 import ContestSchedules from "@/layouts/schedules/ContestSchedule";
 import { SchoolSession, SchoolYear, StudentInfo } from "@/types";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import memoize from 'memoizee';
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const getResult = memoize(getResultAsync, {
     maxAge: timeConstants.DEFAULT_MEMOIZE_CACHE_TIME, // clear cache after 1 minute or whatever works for you
@@ -23,15 +24,19 @@ export async function generateMetadata(
 ): Promise<Metadata> {
 
     const { requestId } = params
-
     // fetch data
     const res = await getResult(requestId)
     const student = res?.data as StudentInfo
 
     return {
-        title: student ? `Kết quả tra cứu lịch thi sinh viên: ${student?.code}` : 'Không tìm thấy kết quả tra cứu',
+        title: student ? `Kết quả tra cứu lịch thi: ${student?.code}` : 'Không tìm thấy kết quả tra cứu',
         description: student && `Thông tin sinh viên: ${student.firstName} ${student.lastName}`,
+        openGraph: {
+            title: student ? `Kết quả tra cứu lịch thi: ${student?.code}` : 'Không tìm thấy kết quả tra cứu',
+            description: student && `Thông tin sinh viên: ${student.firstName} ${student.lastName}`,
+            images: [siteConfig.publicLogoUrl],
     }
+}
 }
 
 const ScheduleDetailPage = async ({ params }: { params: { requestId: string } }) => {
@@ -43,7 +48,7 @@ const ScheduleDetailPage = async ({ params }: { params: { requestId: string } })
     const studentRequest = res?.data as StudentInfo
 
     if (!studentRequest) {
-        return notFound()
+        redirect('/')
     }
 
     await queryClient.prefetchQuery({
@@ -54,7 +59,7 @@ const ScheduleDetailPage = async ({ params }: { params: { requestId: string } })
     const studentQuery: any = queryClient.getQueryData(['student', studentRequest?.code])
 
     if (!studentQuery || !studentQuery?.success) {
-        return notFound()
+        redirect('/')
     }
 
     const studentData = studentQuery?.data as StudentInfo

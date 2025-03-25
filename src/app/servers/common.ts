@@ -79,7 +79,6 @@ const getSchoolSessionsAsync = async (yearCode: string) => {
         return null;
     }
 }
-export {
-    getSchoolSessionsAsync, getSchoolYearsAsync
-};
+
+export { getSchoolSessionsAsync, getSchoolYearsAsync };
 
