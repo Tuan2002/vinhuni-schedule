@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Kbd } from "@heroui/kbd";
@@ -21,8 +23,12 @@ import {
 } from "@/components/Icons";
 import { ThemeSwitch } from "@/components/ThemeSwitch";
 import { siteConfig } from "@/config/site";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
+
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname.startsWith(href);
   const searchInput = (
     <Input
       aria-label="Search"
@@ -48,12 +54,26 @@ export const Navbar = () => {
     <NextUINavbar maxWidth="xl" position="sticky" className="fixed">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-2" href="/">
+          <NextLink className="flex justify-start items-center gap-4" href="/">
             <Logo />
             <p className="font-bold text-inherit">VinhUNI Campus</p>
           </NextLink>
         </NavbarBrand>
+        <NavbarContent className="hidden sm:flex gap-3">
+          {siteConfig.navItems.map((item, index) => (
+            <NavbarItem key={`${item.label}-${index}`} isActive={isActive(item.href)}>
+              <Link
+                color={isActive(item.href) ? "secondary" : "foreground"}
+                href={item.href}
+              >
+                {item.label}
+              </Link>
+            </NavbarItem>
+          ))} 
+        </NavbarContent>
       </NavbarContent>
+      {/* <NavbarContent className="hidden sm:flex basis-1/5 gap-4" justify="start">
+      </NavbarContent> */}
       <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
@@ -91,13 +111,7 @@ export const Navbar = () => {
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
+                color={isActive(item.href) ? "secondary" : "foreground"}
                 href="#"
                 size="lg"
               >

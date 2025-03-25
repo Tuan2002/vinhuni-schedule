@@ -158,6 +158,36 @@ export const HeartFilledIcon = ({
   </svg>
 );
 
+export const ShapeCircleIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+    focusable="false"
+    height={size || height}
+    role="presentation"
+    width={size || width} 
+    {...props} viewBox="0 0 512 512"><path fill="currentColor" d="M256 464c-114.69 0-208-93.31-208-208S141.31 48 256 48s208 93.31 208 208-93.31 208-208 208z" /></svg>
+);
+
+export const ArrowForwardIcon = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
+  <svg xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
+    height={size || height}
+    role="presentation"
+    width={size || width}
+    {...props} viewBox="0 0 512 512"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M262.62 336L342 256l-79.38-80M330.97 256H170" /><path d="M256 448c106 0 192-86 192-192S362 64 256 64 64 150 64 256s86 192 192 192z" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="32" /></svg>
+);
+
+
 export const SearchIcon = (props: IconSvgProps) => (
   <svg
     aria-hidden="true"

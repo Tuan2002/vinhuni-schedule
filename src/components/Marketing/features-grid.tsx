@@ -52,23 +52,23 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({features, classNames,
   };
 
   return (
-    <div className={slots.base({class: classNames?.base})} {...props}>
+    <div className={slots.base({class: classNames?.base as any})} {...props}>
       {features.map((feat: Feature, index: number) => (
         <Card
           key={`${feat.title}_${index}`}
           isBlurred
-          className={slots.card({class: classNames?.card})}
+          className={slots.card({class: classNames?.card as any})}
           isPressable={!!feat.href}
           onPress={() => handleClick(feat)}
         >
-          <CardHeader className={slots.header({class: classNames?.header})}>
-            <div className={slots.iconWrapper({ class: classNames?.iconWrapper })}>{feat.icon}</div>
-            <p className={slots.title({class: classNames?.title})}>{feat.title}</p>
+          <CardHeader className={slots.header({class: classNames?.header as any})}>
+            <div className={slots.iconWrapper({class: classNames?.iconWrapper as any})}>{feat.icon}</div>
+            <p className={slots.title({class: classNames?.title as any})}>{feat.title}</p>
             {feat.isExternal && <LinkIcon height={18} width={18} />}
           </CardHeader>
           {feat.description ? (
-            <CardBody className={slots.body({class: classNames?.body})}>
-              <p className={slots.description({class: classNames?.description})}>
+            <CardBody className={slots.body({class: classNames?.body as any})}>
+              <p className={slots.description({class: classNames?.description as any})}>
                 {feat.description}
               </p>
             </CardBody>

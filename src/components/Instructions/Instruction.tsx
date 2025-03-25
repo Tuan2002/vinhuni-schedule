@@ -6,7 +6,7 @@ import landingContent from "@/contents/landing/index";
 
 export const LastButNotLeast = () => {
     return (
-        <section className={sectionWrapper({ class: "mt-16 lg:mt-32" })}>
+        <section className={sectionWrapper({ class: "mt-12 lg:mt-44" })}>
             <div className="flex flex-col gap-0 md:gap-8">
                 <div>
                     <div className={titleWrapper({ class: "items-center" })}>

@@ -28,6 +28,7 @@ jobs:
         run: |
           docker build -f .docker/Dockerfile \
             --build-arg NEXT_PUBLIC_CLOUDFLARE_SITE_KEY=${{ vars.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY }} \
+            --build-arg NEXT_PUBLIC_BASE_URL=${{ vars.NEXT_PUBLIC_BASE_URL }} \
           -t ${{ vars.DOCKER_USER }}/vinhuni-schedule:latest .
 
       # Step 4: Push the Docker Image to Registry
