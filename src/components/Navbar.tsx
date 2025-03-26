@@ -72,8 +72,6 @@ export const Navbar = () => {
           ))} 
         </NavbarContent>
       </NavbarContent>
-      {/* <NavbarContent className="hidden sm:flex basis-1/5 gap-4" justify="start">
-      </NavbarContent> */}
       <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
@@ -94,7 +92,7 @@ export const Navbar = () => {
             startContent={<HeartFilledIcon className="text-danger" />}
             variant="flat"
           >
-            Sponsor
+            Ủng hộ
           </Button>
         </NavbarItem>
       </NavbarContent>
@@ -111,8 +109,9 @@ export const Navbar = () => {
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
+                as={NextLink}
                 color={isActive(item.href) ? "secondary" : "foreground"}
-                href="#"
+                href={item.href}
                 size="lg"
               >
                 {item.label}

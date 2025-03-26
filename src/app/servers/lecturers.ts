@@ -21,12 +21,8 @@ const getLecturersAsync = async (search: string) => {
             },
             take: QueryConfigs.LimitSearchResult
         });
-        if (!lecturers || lecturers?.length === 0) {
-            return { success: false, data: null };
-        }
         const requestTimestamp = new Date();
         const requestHash = Base64.encode(`${search}&${requestTimestamp.toISOString()}`);
-
         await prisma.statistics.create({
             data: {
                 code: StatisticTypes.LecturerSearch,
@@ -34,6 +30,10 @@ const getLecturersAsync = async (search: string) => {
                 timestamp: requestTimestamp,
             }
         });
+
+        if (!lecturers || lecturers?.length === 0) {
+            return { success: false, data: null };
+        }
         return { success: true, data: lecturers as BaseLecturerInfo[] };
 
     } catch (error) {
@@ -50,9 +50,9 @@ const getLecturerInfoAsync = async (lecturerId: string) => {
                 id: lecturerId,
             },
         });
+        
         const requestTimestamp = new Date();
-        const requestHash = Base64.encode(`${lecturerId}&${JSON.stringify(lecturer)}&${requestTimestamp.toISOString()}`);
-
+        const requestHash = Base64.encode(`${lecturerId}&${lecturer?.name}&${requestTimestamp.toISOString()}`);
         await prisma.statistics.create({
             data: {
                 code: StatisticTypes.LecturerView,
@@ -60,6 +60,10 @@ const getLecturerInfoAsync = async (lecturerId: string) => {
                 timestamp: requestTimestamp,
             }
         });
+
+        if (!lecturer) {
+            return { success: false, data: null };
+        }
         return { success: true, data: lecturer as LecturerInfo };
         
     } catch (error) {
