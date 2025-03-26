@@ -10,6 +10,7 @@ const getLecturersAsync = async (search: string) => {
             where: {
                 name: {
                     contains: search,
+                    mode: 'insensitive',
                 },
             },
             select: {

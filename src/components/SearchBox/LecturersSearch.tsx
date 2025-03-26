@@ -1,5 +1,4 @@
 "use client";
-import { verifyTurnstileToken } from "@/app/servers/auth";
 import { getLecturersAsync } from "@/app/servers/lecturers";
 import { BaseLecturerInfo } from "@/types";
 import { Button } from "@heroui/button";
@@ -9,7 +8,6 @@ import { addToast, Avatar, Card, CardBody, CardHeader, Divider, Listbox, Listbox
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import Turnstile from 'react-turnstile';
 import { ArrowForwardIcon } from "../Icons";
 
 const LeccturersSearch = () => {
@@ -17,22 +15,10 @@ const LeccturersSearch = () => {
     const [value, setValue] = useState("");
     const [isSearching, setIsSearching] = useState(false);
     const [lecturers, setLecturers] = useState<BaseLecturerInfo[] | null>(null);
-    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
     const onSubmit = async (e: any) => {
-        e.preventDefault();
-        if (!turnstileToken) {
-            setErrors({ turnstile: "Vui lòng hoàn thành bảo mật" });
-            return;
-        }
-        
+        e.preventDefault();   
         setIsSearching(true);
-        const turnstileResponse = await verifyTurnstileToken(turnstileToken);
-        if (!turnstileResponse.success) {
-            setErrors({ turnstile: "Lỗi xác thực bảo mật" });
-            setIsSearching(false);
-            return;
-        }
         const res = await getLecturersAsync(value);
         if (!res?.success || !res?.data) {
             addToast({
@@ -58,14 +44,14 @@ const LeccturersSearch = () => {
             >
                 <div className="flex flex-col md:flex-row justify-center w-full gap-4">
                     <Input
-                        placeholder="Nhập tên hoặc mã giảng viên"
+                        placeholder="Nhập tên giảng viên"
                         size="lg"
                         aria-labelledby="search-lecturer"
                         name="lecturerName"
                         isRequired
                         errorMessage={({ validationDetails, validationErrors }) => {
                             if (validationDetails.valueMissing) {
-                                return "Vui lòng nhập tên hoặc mã giảng viên";
+                                return "Vui lòng nhập tên giảng viên";
                             }
                             return validationErrors;
                         }}
@@ -83,29 +69,16 @@ const LeccturersSearch = () => {
                         radius="lg"
                         type="submit"
                         aria-labelledby="search-lecturer-button"
-                        isDisabled={!turnstileToken || isSearching}
+                        isDisabled={isSearching}
                         isLoading={isSearching}
                     >
                         Tra cứu
                     </Button>
                 </div>
-                <div className="flex justify-center w-full mt-2">
-                    <Turnstile
-                        sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY!}
-                        onVerify={(token) => {
-                            setTurnstileToken(token)
-                            setErrors({
-                                ...errors,
-                                turnstile: null
-                            })
-                        }}
-                        onExpire={() => setTurnstileToken(null)}
-                    />
-                </div>
             </Form>
             {
                 lecturers && (
-                    <div className="mt-4 w-full">
+                    <div className="mt-8 w-full">
                         <Card
                             isBlurred
                             className="overflow-auto border-small border-foreground/10 bg-transparent"
