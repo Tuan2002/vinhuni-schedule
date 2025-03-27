@@ -36,6 +36,9 @@ export default function ContestSchedulePage() {
         <div className={subtitle({ class: "mt-4" })}>
           Áp dụng cho sinh viên trường Đại học Vinh hệ chính quy
         </div>
+        <div className="text-center text-xs text-danger-500">
+            <p>* Dữ liệu lịch thi không bao gồm các bài kiểm tra do giảng viên tự tổ chức</p>
+        </div>
         <div className="mt-4">
           <ContestScheduleSearch />
         </div>
