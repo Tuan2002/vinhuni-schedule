@@ -18,11 +18,11 @@ export const siteConfig = {
       href: "/lecturers",
       isRoot: false,
     },
-    // {
-    //   label: "Thời khóa biểu",
-    //   href: "/schedule",
-    //   isRoot: false,
-    // },
+    {
+      label: "Thời khóa biểu",
+      href: "/schedule",
+      isRoot: false,
+    },
   ],
   navMenuItems: [
     {
@@ -33,10 +33,10 @@ export const siteConfig = {
       label: "Giảng viên",
       href: "/lecturers",
     },
-    // {
-    //   label: "Thời khóa biểu",
-    //   href: "/schedule",
-    // },
+    {
+      label: "Thời khóa biểu",
+      href: "/schedule",
+    },
   ],
   links: {
     github: "https://github.com/tuan2002",

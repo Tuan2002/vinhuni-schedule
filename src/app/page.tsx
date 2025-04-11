@@ -27,13 +27,13 @@ export default function Home() {
         <div className="mt-4 flex flex-col sm:flex-row justify-center items-center gap-2">
           <Button as={Link} href="/contest-schedule" fullWidth className={"shadow-sm bg-gradient-to-tr text-white from-[#b95ab6] to-[#b249f8]"} variant="flat">Tra cứu lịch thi</Button>
           <Button as={Link} href="/lecturers" fullWidth className={"shadow-sm bg-gradient-to-tr text-white from-[#FF705B] to-[#FFB457]"} variant="flat">Tra cứu giảng viên</Button>
-          {/* <Button as={Link} href="/schedule" fullWidth className={"shadow-sm bg-gradient-to-tr text-white from-[#5EA2EF] to-[#0072F5]"} variant="flat">Tra cứu TKB</Button> */}
-          <Button fullWidth color="primary" className={"shadow-sm text-white"} isDisabled variant="solid">
+          <Button as={Link} href="/schedule" fullWidth className={"shadow-sm bg-gradient-to-tr text-white from-[#5EA2EF] to-[#0072F5]"} variant="flat">Tra cứu TKB</Button>
+          {/* <Button fullWidth color="primary" className={"shadow-sm text-white"} isDisabled variant="solid">
             <div>
               <span className="text-sm">Tra cứu TKB</span>
               <div className="text-xs">(Đang cập nhật)</div>
             </div>
-          </Button>
+          </Button> */}
         </div>
         {/* <div className="mt-4">
           <ContestScheduleSearch />
