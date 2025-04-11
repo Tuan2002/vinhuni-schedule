@@ -63,7 +63,7 @@ export default function Schedules({ studentCode, currentYearCode, schoolYears, s
     })
 
     const { data: schedulesGroupped, isFetching: isSchedulesFetching } = useQuery({
-        queryKey: ['student-schedules', studentCode, selectedSession, selectedWeek?.startDate.getTime(), selectedWeek?.endDate.getTime()],
+        queryKey: ['student-schedules', studentCode, Number(selectedSession), selectedWeek?.startDate.getTime(), selectedWeek?.endDate.getTime()],
         queryFn: async () => await getStudentSchedulesAsync(studentCode, selectedSession!, selectedWeek?.startDate, selectedWeek?.endDate),
         enabled: !!selectedSession && !!studentCode && !!selectedWeek,
         select: (data) => data?.data as any,
