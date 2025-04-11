@@ -35,7 +35,7 @@ export default function ContestSchedules({ studentCode, currentYearCode, schoolY
     })
 
     const { data: contestSchedules, isFetching: isSchedulesFetching } = useQuery({
-        queryKey: ['studentContestSchedules', studentCode, selectedSession],
+        queryKey: ['studentContestSchedules', studentCode, Number(selectedSession)],
         queryFn: async () => await getContestSchedulesAsync(studentCode, selectedSession!),
         enabled: !!selectedSession && !!studentCode,
         select: (data) => data?.data as Array<ContestSchedule>
