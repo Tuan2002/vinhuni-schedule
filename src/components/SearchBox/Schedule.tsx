@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Turnstile from 'react-turnstile';
 
-const ContestScheduleSearch = () => {
+const ScheduleSearch = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [value, setValue] = useState("");
@@ -41,7 +41,7 @@ const ContestScheduleSearch = () => {
             setIsLoading(false);
             return;
         }
-        router.push(`/contest-schedule/${initCheckRequest?.requestId}`);
+        router.push(`/schedule/${initCheckRequest?.requestId}`);
     };
     return (
         <Form onSubmit={onSubmit}
@@ -98,4 +98,4 @@ const ContestScheduleSearch = () => {
     );
 };
 
-export default ContestScheduleSearch;
+export default ScheduleSearch;

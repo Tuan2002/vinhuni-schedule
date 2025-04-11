@@ -1,13 +1,14 @@
-import { getMajorInfoAsync, getResultAsync, getSchoolSessionsAsync, getSchoolYearsAsync, getStudentInfoAsync } from "@/app/servers/common";
-import { getContestSchedulesAsync } from "@/app/servers/contest-schedule";
-import ContestSchedules from "@/components/ContestSchedules/ContestSchedule";
+import { getMajorInfoAsync, getResultAsync, getSchoolSessionsAsync, getSchoolYearsAsync, getStudentInfoAsync, getTimeMode } from "@/app/servers/common";
+import { getStudentSchedulesAsync } from "@/app/servers/schedule";
+import Schedules from "@/components/Schedules/Schedule";
 import { siteConfig } from "@/config/site";
 import { timeConstants } from "@/constants";
-import { SchoolSession, SchoolYear, StudentInfo } from "@/types";
+import { SchoolSession, SchoolWeek, SchoolYear, StudentInfo } from "@/types";
+import { getSchoolWeeks } from "@/utils";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import memoize from 'memoizee';
-import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Metadata } from "next/types";
 
 const getResult = memoize(getResultAsync, {
     maxAge: timeConstants.DEFAULT_MEMOIZE_CACHE_TIME, // clear cache after 1 minute or whatever works for you
@@ -29,21 +30,20 @@ export async function generateMetadata(
     const student = res?.data as StudentInfo
 
     return {
-        title: student ? `Kết quả tra cứu lịch thi: ${student?.code}` : 'Không tìm thấy kết quả tra cứu',
-        description: student && `Thông tin sinh viên: ${student.firstName} ${student.lastName}`,
+        title: student ? `Kết quả tra cứu lịch học: ${student?.code}` : 'Không tìm thấy kết quả tra cứu',
+        description: student && `Thông tin thời khóa biểu`,
         openGraph: {
-            title: student ? `Kết quả tra cứu lịch thi: ${student?.code}` : 'Không tìm thấy kết quả tra cứu',
-            description: student && `Thông tin sinh viên: ${student.firstName} ${student.lastName}`,
+            title: student ? `Kết quả tra cứu lịch học: ${student?.code}` : 'Không tìm thấy kết quả tra cứu',
+            description: student && `Thông tin thời khóa biểu`,
             images: [siteConfig.publicLogoUrl],
+        }
     }
 }
-}
 
-const ContestScheduleDetailPage = async ({ params }: { params: { requestId: string } }) => {
+const ScheduleDetailPage = async ({ params }: { params: { requestId: string } }) => {
 
     const queryClient = new QueryClient()
 
-    // fetch data
     const res = await getResult(params?.requestId)
     const studentRequest = res?.data as StudentInfo
 
@@ -99,24 +99,42 @@ const ContestScheduleDetailPage = async ({ params }: { params: { requestId: stri
         const endDate = new Date(item?.endDate)
         return today >= startDate && today <= endDate
     })
-
+    // const studentData = studentQuery?.data as StudentInfo
     if (currentSession) {
         await queryClient.prefetchQuery({
-            queryKey: ['studentContestSchedules', studentData?.code, currentSession?.id],
-            queryFn: async () => await getContestSchedulesAsync(studentData?.code, String(currentSession?.id)),
+            queryKey: ['schoolWeeks', currentSession?.id],
+            queryFn: () => getSchoolWeeks(currentSession?.startDate, currentSession?.endDate),
         })
     }
+    const schoolWeeksData: SchoolWeek[] | undefined = queryClient.getQueryData(['schoolWeeks', currentSession?.id])
+    const currentWeek = schoolWeeksData?.find((item) => {
+        const today = new Date()
+        const startDate = new Date(item?.startDate)
+        const endDate = new Date(item?.endDate)
+        return today >= startDate && today <= endDate
+    })
+
+    if (currentSession && currentWeek) {
+        await queryClient.prefetchQuery({
+            queryKey: ['student-schedules', studentData?.code, currentSession?.id, currentWeek?.startDate.getTime(), currentWeek?.endDate.getTime()],
+            queryFn: async () => await getStudentSchedulesAsync(studentData?.code, String(currentSession?.id), currentWeek?.startDate, currentWeek?.endDate),
+        })
+    }
+    const isWinterTime = getTimeMode()
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <ContestSchedules
+            <Schedules
                 studentCode={studentData?.code}
                 currentSessionId={currentSession?.id}
                 currentYearCode={currentYear?.code}
                 schoolSessions={schoolSessionsData}
+                currentWeek={currentWeek}
+                schoolWeeks={schoolWeeksData}
                 schoolYears={schoolYearsData}
+                isDefaultWinterTime={isWinterTime}
             />
         </HydrationBoundary>
     )
 }
 
-export default ContestScheduleDetailPage
+export default ScheduleDetailPage

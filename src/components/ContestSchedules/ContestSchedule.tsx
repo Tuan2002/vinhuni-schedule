@@ -1,7 +1,7 @@
 "use client";
 
 import { getSchoolSessionsAsync } from "@/app/servers/common";
-import { getContestSchedulesAsync } from "@/app/servers/schedule";
+import { getContestSchedulesAsync } from "@/app/servers/contest-schedule";
 import { title } from "@/components/Primitives";
 import StudentInfoCard from "@/components/Students/StudentInfoCard";
 import { ContestSchedule, SchoolSession, SchoolYear } from "@/types";

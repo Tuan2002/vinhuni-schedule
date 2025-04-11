@@ -28,6 +28,13 @@ export type StudentInfo = {
   classId?: number;
 };
 
+export type TeacherInfo = {
+  code: string;
+  firstName?: string;
+  lastName?: string;
+  dob?: Date;
+};
+
 export type MajorInfo = {
   code: string;
   name: string;
@@ -118,3 +125,16 @@ export type ContestListInfo = {
   contestDate: Date;
   roomId?: string;
 };
+
+export type SchoolWeek = {
+  weekId: string;
+  startDate: Date;
+  endDate: Date;
+}
+
+export type DayOfWeek = {
+  label: string;
+  date: Date;
+  isToday?: boolean;
+  isSunday?: boolean;
+}
