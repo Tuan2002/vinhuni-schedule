@@ -73,7 +73,7 @@ export default function Schedules({ studentCode, currentYearCode, schoolYears, s
         queryKey: ['student-today-chedules', studentCode, selectedSession, selectedWeek?.startDate.getTime(), selectedWeek?.endDate.getTime()],
         queryFn: () => {
             const todayIndex = daysOfWeek?.findIndex((day) => day.isToday);
-            return todayIndex !== undefined && todayIndex >= 0 ? schedulesGroupped?.[todayIndex] : null;
+            return todayIndex !== undefined && todayIndex >= 0 ? schedulesGroupped?.[todayIndex] ?? null : null;
         },
         enabled: !!schedulesGroupped && !!daysOfWeek,
         select: (data) => data as Schedule[],
