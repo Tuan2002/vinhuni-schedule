@@ -6,10 +6,13 @@ import { timeConstants } from "@/constants";
 import { SchoolSession, SchoolWeek, SchoolYear, StudentInfo } from "@/types";
 import { getSchoolWeeks } from "@/utils";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import isBetween from 'dayjs/plugin/isBetween';
 import memoize from 'memoizee';
 import { redirect } from "next/navigation";
 import { Metadata } from "next/types";
 
+dayjs.extend(isBetween);
 const getResult = memoize(getResultAsync, {
     maxAge: timeConstants.DEFAULT_MEMOIZE_CACHE_TIME, // clear cache after 1 minute or whatever works for you
     promise: true, // this is important (set to 'true' if your fn returns a promise)
@@ -108,11 +111,14 @@ const ScheduleDetailPage = async ({ params }: { params: { requestId: string } })
     }
     const schoolWeeksData: SchoolWeek[] | undefined = queryClient.getQueryData(['schoolWeeks', currentSession?.id])
     const currentWeek = schoolWeeksData?.find((item) => {
-        const today = new Date()
-        const startDate = new Date(item?.startDate)
-        const endDate = new Date(item?.endDate)
-        return today >= startDate && today <= endDate
+        const today = dayjs().startOf('day'); // Set today to the start of the day
+        const startDate = dayjs(item?.startDate).startOf('day'); // Set start date to the start of the day
+        const endDate = dayjs(item?.endDate).endOf('day'); // Set end date to the end of the day
+
+        return today.isBetween(startDate, endDate, null, '[]'); 
     })
+
+    console.log('currentWeek', currentWeek)
 
     if (currentSession && currentWeek) {
         await queryClient.prefetchQuery({
