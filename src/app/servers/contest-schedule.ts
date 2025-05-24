@@ -59,7 +59,6 @@ const getRoomInfoAsync = async (roomId?: string) => {
         if (cachedRoomInfo) {
             return JSON.parse(cachedRoomInfo);
         }
-        console.log("ROOM ID: ", roomId);
         if (!roomId) {
             throw new Error('Invalid room id');
         }
@@ -142,7 +141,7 @@ const getContestListInfoAsync = async (contestListId?: number) => {
             roomId: data?.data?.instanceIdPhong,
         }
         if (contestListInfo) {
-            await redis.setex(`CONTEST_LIST:${contestListId}`, timeConstants.REDIS_CACHE_TIME, JSON.stringify(contestListInfo));
+            await redis.setex(`CONTEST_LIST:${contestListId}`, timeConstants.REDIS_CACHE_SORT_TIME, JSON.stringify(contestListInfo));
         }
         return contestListInfo;
     } catch (error) {
