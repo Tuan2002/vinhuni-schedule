@@ -106,7 +106,7 @@ const getStudentInfoAsync = async (studentCode: string) => {
         );
         if (!response.ok) throw new Error(response.statusText);
         const data = await response.json();
-        if (!data || !data?.success) {
+        if (!data || !data?.success || !data?.data) {
             return data;
         }
         const studentInfo: StudentInfo = {
