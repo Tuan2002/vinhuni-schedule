@@ -1,5 +1,5 @@
-import { getMajorInfoAsync, getResultAsync, getSchoolSessionsAsync, getSchoolYearsAsync, getStudentInfoAsync } from "@/app/servers/common";
-import { getContestSchedulesAsync } from "@/app/servers/contest-schedule";
+import { getMajorInfoAsync, getResultAsync, getSchoolSessionsAsync, getSchoolYearsAsync, getStudentInfoAsync } from "@/servers/common";
+import { getContestSchedulesAsync } from "@/servers/contest-schedule";
 import ContestSchedules from "@/components/ContestSchedules/ContestSchedule";
 import { siteConfig } from "@/config/site";
 import { timeConstants } from "@/constants";

@@ -1,5 +1,5 @@
 "use client";
-import { getLecturersAsync } from "@/app/servers/lecturers";
+import { getLecturersAsync } from "@/servers/lecturers";
 import { BaseLecturerInfo } from "@/types";
 import { Button } from "@heroui/button";
 import { Form } from "@heroui/form";

@@ -22,7 +22,7 @@ export const siteConfig = {
       label: "Thời khóa biểu",
       href: "/schedule",
       isRoot: false,
-    },
+    }
   ],
   navMenuItems: [
     {
@@ -37,9 +37,13 @@ export const siteConfig = {
       label: "Thời khóa biểu",
       href: "/schedule",
     },
+    {
+      label: "Ủng hộ",
+      href: "/donation",
+    },
   ],
   links: {
     github: "https://github.com/tuan2002",
-    sponsor: "https://github.com/tuan2002",
+    sponsor: "/donation",
   },
 };

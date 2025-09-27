@@ -1,6 +1,6 @@
 "use client";
-import { verifyTurnstileToken } from "@/app/servers/auth";
-import { getStudentInfoAsync, setNewResultAsync } from "@/app/servers/common";
+import { verifyTurnstileToken } from "@/servers/auth";
+import { getStudentInfoAsync, setNewResultAsync } from "@/servers/common";
 import { Button } from "@heroui/button";
 import { Form } from "@heroui/form";
 import { Input } from "@heroui/input";
