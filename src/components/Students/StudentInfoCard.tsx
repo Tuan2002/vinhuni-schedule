@@ -1,6 +1,6 @@
 "use client";
 
-import { getMajorInfoAsync, getStudentInfoAsync } from "@/app/servers/common";
+import { getMajorInfoAsync, getStudentInfoAsync } from "@/servers/common";
 import { MajorInfo, StudentInfo } from "@/types";
 import {
     Button,

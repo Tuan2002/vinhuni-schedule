@@ -1,4 +1,4 @@
-import { getLecturerInfoAsync } from "@/app/servers/lecturers";
+import { getLecturerInfoAsync } from "@/servers/lecturers";
 import LecturerInfoCard from "@/components/Lecturers/LecturerInfo";
 import { subtitle, title } from "@/components/Primitives";
 import { siteConfig } from "@/config/site";

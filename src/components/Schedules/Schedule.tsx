@@ -1,7 +1,7 @@
 "use client";
 
-import { getSchoolSessionsAsync } from "@/app/servers/common";
-import { getStudentSchedulesAsync } from "@/app/servers/schedule";
+import { getSchoolSessionsAsync } from "@/servers/common";
+import { getStudentSchedulesAsync } from "@/servers/schedule";
 import { sectionText, title } from "@/components/Primitives";
 import StudentInfoCard from "@/components/Students/StudentInfoCard";
 import { DayOfWeek, SchoolSession, SchoolWeek, SchoolYear } from "@/types";

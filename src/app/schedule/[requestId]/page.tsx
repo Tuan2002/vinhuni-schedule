@@ -1,5 +1,5 @@
-import { getMajorInfoAsync, getResultAsync, getSchoolSessionsAsync, getSchoolYearsAsync, getStudentInfoAsync, getTimeMode } from "@/app/servers/common";
-import { getStudentSchedulesAsync } from "@/app/servers/schedule";
+import { getMajorInfoAsync, getResultAsync, getSchoolSessionsAsync, getSchoolYearsAsync, getStudentInfoAsync, getTimeMode } from "@/servers/common";
+import { getStudentSchedulesAsync } from "@/servers/schedule";
 import Schedules from "@/components/Schedules/Schedule";
 import { siteConfig } from "@/config/site";
 import { timeConstants } from "@/constants";

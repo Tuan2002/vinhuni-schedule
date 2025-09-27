@@ -29,6 +29,8 @@ export const Navbar = () => {
 
   const pathname = usePathname();
   const isActive = (href: string) => pathname.startsWith(href);
+  const POPOVER_INTERVAL = 10000; // 20 seconds
+  const POPOVER_DURATION = 5000; // 5 seconds
   const searchInput = (
     <Input
       aria-label="Search"
@@ -69,7 +71,7 @@ export const Navbar = () => {
                 {item.label}
               </Link>
             </NavbarItem>
-          ))} 
+          ))}
         </NavbarContent>
       </NavbarContent>
       <NavbarContent
@@ -85,7 +87,6 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
-            isExternal
             as={Link}
             className="text-sm font-normal text-default-600 bg-default-100"
             href={siteConfig.links.sponsor}
@@ -97,9 +98,15 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
+        <Button
+          as={Link}
+          isIconOnly
+          className="text-sm font-normal text-default-600 bg-default-100"
+          href={siteConfig.links.sponsor}
+          startContent={<HeartFilledIcon className="text-danger" />}
+          variant="flat"
+        >
+        </Button>
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>

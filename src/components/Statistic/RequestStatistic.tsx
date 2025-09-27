@@ -1,5 +1,5 @@
 "use client";
-import { getRequestStatisticAsync } from "@/app/servers/statistic";
+import { getRequestStatisticAsync } from "@/servers/statistic";
 import { QueryConfigs } from "@/constants/queryConfig";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import AnimatedNumber from "../AnimateNumber";
