@@ -36,22 +36,22 @@ jobs:
         run: |
           docker push ${{ vars.DOCKER_USER }}/vinhuni-schedule:latest
 
-  deploy:
-    name: Deploy to Server
-    runs-on: ubuntu-latest
-    needs: build
-    environment: Production
+  # deploy:
+  #   name: Deploy to Server
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   environment: Production
 
-    steps:
-      - name: Deploy on Docker
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ vars.SERVER_HOST }}
-          port: ${{ vars.SSH_PORT }}
-          username: ${{ vars.SERVER_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd /home/${{ vars.SERVER_USER }}/app/nextjs/vinhuni-schedule
-            docker compose pull
-            docker compose down
-            docker compose up -d
+  #   steps:
+  #     - name: Deploy on Docker
+  #       uses: appleboy/ssh-action@v1.0.0
+  #       with:
+  #         host: ${{ vars.SERVER_HOST }}
+  #         port: ${{ vars.SSH_PORT }}
+  #         username: ${{ vars.SERVER_USER }}
+  #         key: ${{ secrets.SSH_KEY }}
+  #         script: |
+  #           cd /home/${{ vars.SERVER_USER }}/app/nextjs/vinhuni-schedule
+  #           docker compose pull
+  #           docker compose down
+  #           docker compose up -d
