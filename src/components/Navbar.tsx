@@ -98,15 +98,6 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Button
-          as={Link}
-          isIconOnly
-          className="text-sm font-normal text-default-600 bg-default-100"
-          href={siteConfig.links.sponsor}
-          startContent={<HeartFilledIcon className="text-danger" />}
-          variant="flat"
-        >
-        </Button>
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>

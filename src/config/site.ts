@@ -36,11 +36,7 @@ export const siteConfig = {
     {
       label: "Thời khóa biểu",
       href: "/schedule",
-    },
-    {
-      label: "Ủng hộ",
-      href: "/donation",
-    },
+    }
   ],
   links: {
     github: "https://github.com/tuan2002",
